@@ -23,9 +23,9 @@
  *
  */
 const fragment = document.createDocumentFragment();
-const menuIcon = document.querySelector("i.home")
-const topIcon = document.querySelector("i.fa-circle-up")
-const ul = document.getElementById("navbar__list")
+const menuIcon = document.querySelector("i.home");
+const topIcon = document.querySelector("i.fa-circle-up");
+const ul = document.getElementById("navbar__list");
 /**
  * End Global Variables
  * Start Helper Functions
@@ -33,7 +33,6 @@ const ul = document.getElementById("navbar__list")
  */
 
 // Adding any section you want
-
 function addSection(...sectionNums) {
   for (let sectionNum of sectionNums) {
     const element = document.createElement("section");
@@ -51,7 +50,7 @@ function addSection(...sectionNums) {
     document.querySelector("main").appendChild(element);
   }
 }
-addSection(4, 5 );
+addSection(4, 5);
 
 /**
  * End Helper Functions
@@ -64,7 +63,7 @@ let sectionsNodeList = document.querySelectorAll("section");
 function buildNav() {
   for (let i = 1; i <= sectionsNodeList.length; i++) {
     const listItem = document.createElement("li");
-    listItem.classList.add(`section${i}`)
+    listItem.classList.add(`section${i}`, `menu__link`);
     listItem.innerHTML = `<a href=#section${i}>Section ${i}</a>`;
     fragment.appendChild(listItem);
   }
@@ -73,23 +72,25 @@ function buildNav() {
 buildNav();
 
 // Add class 'active' to section when near top of viewport
-const listItems = document.querySelectorAll("li")
+const listItems = document.querySelectorAll("li");
 const anchorLinks = document.querySelectorAll("a");
-window.addEventListener("scroll" , function(){
-  sectionsNodeList.forEach(function(section){
-    const sectionId = section.getAttribute("id")
-    let top = section.getBoundingClientRect().top
-    if(top > 0 && top < 400){
-      section.classList.add("active")
-      document.querySelector(`a[href*=${sectionId}]`).classList.add("highlight")
-    }else{
-      section.classList.remove("active")
-      document.querySelector(`a[href*=${sectionId}]`).classList.remove("highlight")
+window.addEventListener("scroll", function () {
+  sectionsNodeList.forEach(function (section) {
+    const sectionId = section.getAttribute("id");
+    let top = section.getBoundingClientRect().top;
+    if (top > 0 && top < 400) {
+      section.classList.add("active");
+      document
+        .querySelector(`a[href*=${sectionId}]`)
+        .classList.add("highlight");
+    } else {
+      section.classList.remove("active");
+      document
+        .querySelector(`a[href*=${sectionId}]`)
+        .classList.remove("highlight");
     }
-   
-  })
-  
-})
+  });
+});
 
 // Scroll to anchor ID using scrollTO event
 
@@ -111,50 +112,65 @@ anchorLinks.forEach(function (link) {
 });
 
 // Menu icon click on mobile screens
-
-menuIcon.addEventListener("click" , function(){
-  listItems.forEach(function(listItem){
-    listItem.classList.add("menu__link")
-  })
-  if (ul.style.display == "none"){
-    ul.style.display = "block"
-  }else{
-    ul.style.display = "none"
-  }
-})
-
-
-
-let scrolling;
-window.addEventListener('scroll', function () {
-  // navbar is fixed during scrolling
-  ul.style.display = "block"
-  // it resets the time of timeout function during scrolling
-  window.clearTimeout( scrolling );
-  // navbar is hidden after scrolling
-	scrolling = setTimeout(function() {
-    ul.style.display = "none"
-	}, 1000);
-
+menuIcon.addEventListener("click", function () {
+  ul.style.display == "none"
+    ? (ul.style.display = "block")
+    : (ul.style.display = "none");
 });
+
+// hide fixed nav while not scrolling
+let scrolling;
+window.addEventListener("scroll", function () {
+  // navbar is fixed during scrolling
+  ul.style.display = "block";
+  // it resets the time of timeout function during scrolling
+  window.clearTimeout(scrolling);
+  // navbar is hidden after scrolling
+  scrolling = setTimeout(function () {
+    ul.style.display = "none";
+  }, 1000);
+});
+
 // navbar should still be present on page load
-window.addEventListener("load",function(){
-  ul.style.display = "block"
-})
+window.addEventListener("DOMContentLoaded", function () {
+  ul.style.display = "block";
+});
 
 // scroll to top functionality
-
-window.addEventListener("scroll" , function(){
-  // scrollTop property gets or sets number of pixels that 
+window.addEventListener("scroll", function () {
+  // scrollTop property gets or sets number of pixels that
   //an element's content is scrolled vertically
-  (document.body.scrollTop > 200) ? (topIcon.style.display = "block") : (topIcon.style.display = "none")
-})
+  document.body.scrollTop > 200
+    ? (topIcon.style.display = "block")
+    : (topIcon.style.display = "none");
+});
 // back to the top when click
-topIcon.addEventListener("click" , function(){
-  // The scroll() method of the Element interface scrolls the element 
+topIcon.addEventListener("click", function () {
+  // The scroll() method of the Element interface scrolls the element
   // to a particular set of coordinates inside a given element.
   document.body.scroll({
-    top:0,
-    behavior:"smooth"
-  })
-})
+    top: 0,
+    behavior: "smooth",
+  });
+});
+
+// make sections collapsible
+const sectionHeadings = document.querySelectorAll("h2");
+// Array.from(nodeList) => convert the nodeList into an array to use map function
+// i choose map cause we did not use it in this task
+Array.from(sectionHeadings).map(function (sectionHeading) {
+  sectionHeading.addEventListener("click", function () {
+    const firstSibling = sectionHeading.nextElementSibling;
+    const secondSibling = firstSibling.nextElementSibling;
+    if (
+      firstSibling.style.display == "none" &&
+      secondSibling.style.display == "none"
+    ) {
+      firstSibling.style.display = "block";
+      secondSibling.style.display = "block";
+    } else {
+      firstSibling.style.display = "none";
+      secondSibling.style.display = "none";
+    }
+  });
+});

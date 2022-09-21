@@ -238,7 +238,14 @@ section.active{
 		           rotate(-360deg);
 	}
 }
-
+/* scroll to top icon */
+i.fa-circle-up {
+    color: white;
+    font-size: 45px;
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+}
 /* Media quiries for reponsive navbar  */
 @media(min-width:768px){
     .navbar__menu i {

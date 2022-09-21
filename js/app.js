@@ -155,7 +155,7 @@ window.addEventListener('scroll', function () {
 
 });
 // navbar should still be present on page load
-window.addEventListener("load" , function(){
+window.addEventListener("load",function(){
   ul.style.display = "block"
 })
 

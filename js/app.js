@@ -141,55 +141,22 @@ icon.addEventListener("click" , function(){
 })
 
 
-// var isScrolling;
 
-// Listen for scroll events
-// window.addEventListener('scroll', function () {
+let scrolling;
+window.addEventListener('scroll', function () {
+  // navbar is fixed during scrolling
+  ul.style.display = "block"
+  // it resets the time of timeout function during scrolling
+  window.clearTimeout( scrolling );
+  // navbar is hidden after scrolling
+	scrolling = setTimeout(function() {
+    ul.style.display = "none"
+	}, 1000);
 
-// 	// Clear our timeout throughout the scroll
-  
-//   window.clearTimeout( isScrolling );
-// 	// Set a timeout to run after scrolling ends
-// 	isScrolling = setTimeout(function() {
-    
-//     // Run the callback
-// 		console.log( 'Scrolling has stopped.' );
-//     document.getElementById("navbar__list").style.display = "none"
-    
-// 	}, 66);
-
-// });
-
-
-// const onScrollStop = callback => {
-//   let isScrolling;
-//   window.addEventListener(
-//     'scroll',
-//     e => {
-//       clearTimeout(isScrolling);
-//       isScrolling = setTimeout(() => {
-//         callback();
-//       }, 150);
-//     },
-//     false
-//   );
-// };
-
-// onScrollStop(() => {
-//   console.log('The user has stopped scrolling');
-// });
+});
+// navbar should still be present on page load
+window.addEventListener("load" , function(){
+  ul.style.display = "block"
+})
 
 
-// (function() {        
-//   var timer;
-//   window.addEventListener('scroll',function () {
-//       clearTimeout(timer);
-//       timer = setTimeout(  function () { 
-//         // do stuff
-//         console.log('Stopped Scrolling'); 
-//         // document.getElementById("navbar__list").style.display = "none";
-
-//     } , 150 );
-//   });
-  
-// })();

@@ -77,10 +77,10 @@ section {
 .navbar__menu li a {
     text-decoration: none;
     padding: 10px;
-    border-radius: 20pc;
+    /* border-radius: 20px; */
 }
 .navbar__menu li a.highlight{
-    background-color: red;
+    border-bottom:4px solid red;
     transition: ease 0.3s all;
 }
 

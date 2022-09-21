@@ -23,7 +23,8 @@
  *
  */
 const fragment = document.createDocumentFragment();
-const icon = document.querySelector("i")
+const menuIcon = document.querySelector("i.home")
+const topIcon = document.querySelector("i.fa-circle-up")
 const ul = document.getElementById("navbar__list")
 /**
  * End Global Variables
@@ -78,15 +79,7 @@ window.addEventListener("scroll" , function(){
   sectionsNodeList.forEach(function(section){
     const sectionId = section.getAttribute("id")
     let top = section.getBoundingClientRect().top
-    // let bottom = section.getBoundingClientRect().bottom
-    // let getBound = section.getBoundingClientRect()
-    // console.log(getBound)
-    // let scrollY = window.pageYOffset;
-    // const sectionHeight = section.offsetHeight;
-    // const sectionTop = section.offsetTop - 50;
-    // if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
     if(top > 0 && top < 400){
-
       section.classList.add("active")
       document.querySelector(`a[href*=${sectionId}]`).classList.add("highlight")
     }else{
@@ -97,14 +90,6 @@ window.addEventListener("scroll" , function(){
   })
   
 })
-
-
-
-// console.log(sectionsNodeList[0].getBoundingClientRect())
-// console.log(sectionsNodeList[1].getBoundingClientRect())
-// console.log(sectionsNodeList[2].getBoundingClientRect())
-
-
 
 // Scroll to anchor ID using scrollTO event
 
@@ -119,17 +104,15 @@ window.addEventListener("scroll" , function(){
 // Scroll to section on link click
 anchorLinks.forEach(function (link) {
   link.addEventListener("click", function (event) {
-    // console.log("The link is",link)
     event.preventDefault();
     let linkHref = link.getAttribute("href");
-    // console.log(linkHref)
     document.querySelector(linkHref).scrollIntoView({ behavior: "smooth" });
   });
 });
 
 // Menu icon click on mobile screens
 
-icon.addEventListener("click" , function(){
+menuIcon.addEventListener("click" , function(){
   listItems.forEach(function(listItem){
     listItem.classList.add("menu__link")
   })
@@ -159,4 +142,19 @@ window.addEventListener("load",function(){
   ul.style.display = "block"
 })
 
+// scroll to top functionality
 
+window.addEventListener("scroll" , function(){
+  // scrollTop property gets or sets number of pixels that 
+  //an element's content is scrolled vertically
+  (document.body.scrollTop > 200) ? (topIcon.style.display = "block") : (topIcon.style.display = "none")
+})
+// back to the top when click
+topIcon.addEventListener("click" , function(){
+  // The scroll() method of the Element interface scrolls the element 
+  // to a particular set of coordinates inside a given element.
+  document.body.scroll({
+    top:0,
+    behavior:"smooth"
+  })
+})
